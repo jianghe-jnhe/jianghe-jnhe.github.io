@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Jnhe</title>
+  <meta name="description" content="单片机串口通用收发功能笔记接收单字节数据前期准备   标准库：用户已经配置好串口的时钟、引脚（MSP层）和UART参数设置，已经配置串口中断；   HAL库：使用CubeMX或CubeIDE已经配置好串口的时钟、引脚（MSP层）和UART参数设置，已经配置串口中断；  1234567891011&#x2F;* 标准库 能够接收1个字节的数据 *&#x2F;uint8_t my_rx_data;		&#x2F;&#x2F;定义串口接收的数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jnhe">
+<meta property="og:url" content="https://jianghe-jnhe.github.io/2024/09/04/SerialNote/index.html">
+<meta property="og:site_name" content="Jnhe">
+<meta property="og:description" content="单片机串口通用收发功能笔记接收单字节数据前期准备   标准库：用户已经配置好串口的时钟、引脚（MSP层）和UART参数设置，已经配置串口中断；   HAL库：使用CubeMX或CubeIDE已经配置好串口的时钟、引脚（MSP层）和UART参数设置，已经配置串口中断；  1234567891011&#x2F;* 标准库 能够接收1个字节的数据 *&#x2F;uint8_t my_rx_data;		&#x2F;&#x2F;定义串口接收的数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-04T08:15:04.701Z">
+<meta property="article:modified_time" content="2024-09-02T02:52:30.967Z">
+<meta property="article:author" content="Jnhe">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://jianghe-jnhe.github.io/2024/09/04/SerialNote/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jnhe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/jianghe-jnhe" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">JiangHe</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Student</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangXi, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jianghe-jnhe" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://space.bilibili.com/496375938" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>不打鸡血，不摆烂</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/04/TTL-RS232-RS485/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-04T08:15:04.705Z" itemprop="datePublished">2024-09-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/04/SerialNote/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-04T08:15:04.701Z" itemprop="datePublished">2024-09-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/01/01/myGoal/" class="title">新年目标</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-12-31T16:00:00.000Z" itemprop="datePublished">2024-01-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/12/31/myMCU/" class="title">主控芯片</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-12-31T08:45:56.000Z" itemprop="datePublished">2023-12-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/12/10/Whoami/" class="title">资料指南</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-12-10T02:09:22.000Z" itemprop="datePublished">2023-12-10</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-SerialNote" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/09/04/SerialNote/" class="article-date">
+	  <time datetime="2024-09-04T08:15:04.701Z" itemprop="datePublished">2024-09-04</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/09/04/SerialNote/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="单片机串口通用收发功能笔记"><a href="#单片机串口通用收发功能笔记" class="headerlink" title="单片机串口通用收发功能笔记"></a>单片机串口通用收发功能笔记</h1><h2 id="接收单字节数据"><a href="#接收单字节数据" class="headerlink" title="接收单字节数据"></a>接收单字节数据</h2><h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><blockquote>
+<p>  标准库：用户已经配置好串口的时钟、引脚（MSP层）和UART参数设置，已经配置串口中断；</p>
+<p>  HAL库：使用CubeMX或CubeIDE已经配置好串口的时钟、引脚（MSP层）和UART参数设置，已经配置串口中断；</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 标准库 能够接收1个字节的数据 */</span></span><br><span class="line"><span class="type">uint8_t</span> my_rx_data;		<span class="comment">//定义串口接收的数据变量</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">USART1_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)</span><br><span class="line">	&#123;</span><br><span class="line">		my_rx_data = USART_ReceiveData(USART1);	</span><br><span class="line"></span><br><span class="line">		USART_ClearITPendingBit(USART1, USART_IT_RXNE);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* HAL库 能够接收1个字节的数据  */</span></span><br><span class="line"><span class="comment">//main.c</span></span><br><span class="line"><span class="type">uint8_t</span> my_rx_data;		<span class="comment">//定义串口接收的数据变量</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    HAL_UART_Receive_IT(&amp;huart1,&amp;my_rx_data,<span class="number">1</span>); </span><br><span class="line">    </span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(huart == &amp;huart1)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//接收数据</span></span><br><span class="line"></span><br><span class="line">		HAL_UART_Receive_IT(&amp;huart1, &amp;my_rx_data, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="推荐教程"><a href="#推荐教程" class="headerlink" title="推荐教程"></a>推荐教程</h3><ul>
+<li>标准库串口收发教程·江协科技<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1th411z7sn?p=27">https://www.bilibili.com/video/BV1th411z7sn?p=27</a></li>
+</ul>
+</li>
+<li>HAL库串口收发教程·keysking<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bc411J7Tv/">https://www.bilibili.com/video/BV1bc411J7Tv/</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="接收多个数据"><a href="#接收多个数据" class="headerlink" title="接收多个数据"></a>接收多个数据</h2><blockquote>
+<p>  定义一个固定长度的全局数组或字符串；</p>
+<p>  定义一个用于记录接收数据长度的变量，初试为0，接收累加；</p>
+</blockquote>
+<h3 id="标准库-WIFI为例"><a href="#标准库-WIFI为例" class="headerlink" title="标准库-WIFI为例"></a>标准库-WIFI为例</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .h文件 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ESP01S_RX_BUF_MAX_LEN     1024  </span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">char</span>  	esp01s_rx_buf[];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">uint16_t</span> esp01s_rx_buf_len;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">uint8_t</span> 	esp01s_rx_data;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .c文件 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span>  esp01s_rx_buf[ ESP01S_RX_BUF_MAX_LEN ];</span><br><span class="line"><span class="type">uint16_t</span> esp01s_rx_buf_len = <span class="number">0</span>;</span><br><span class="line"><span class="type">uint8_t</span> esp01s_rx_data;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">USART1_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)</span><br><span class="line">	&#123;</span><br><span class="line">		esp01s_rx_data = USART_ReceiveData(USART1);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>( esp01s_rx_buf_len &lt; (ESP01S_RX_BUF_MAX_LEN<span class="number">-1</span>) )</span><br><span class="line">		&#123;</span><br><span class="line">			esp01s_rx_buf[esp01s_rx_buf_len] = esp01s_rx_data;	</span><br><span class="line">			esp01s_rx_buf_len++;</span><br><span class="line">		&#125;</span><br><span class="line">		USART_ClearITPendingBit(USART1, USART_IT_RXNE);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HAL库-SCPI为例"><a href="#HAL库-SCPI为例" class="headerlink" title="HAL库-SCPI为例"></a>HAL库-SCPI为例</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> EL_RX_BUF_MAX_LEN	1024</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">char</span> el_rx_buf[];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">uint16_t</span> el_rx_buf_len;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">uint8_t</span> el_rx_data;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_UART_Receive_IT(&amp;huart1,&amp;el_rx_data,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> el_rx_buf[EL_RX_BUF_MAX_LEN];</span><br><span class="line"><span class="type">uint16_t</span> el_rx_buf_len = <span class="number">0</span>;</span><br><span class="line"><span class="type">uint8_t</span> el_rx_data = <span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(huart == &amp;huart1)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//接收电子负载的数据</span></span><br><span class="line">		<span class="keyword">if</span>( el_rx_buf_len &lt; (EL_RX_BUF_MAX_LEN<span class="number">-1</span>) )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//接收到1个数据，存入</span></span><br><span class="line">			el_rx_buf[el_rx_buf_len] = el_rx_data;</span><br><span class="line">			el_rx_buf_len++;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		HAL_UART_Receive_IT(&amp;huart1, &amp;el_rx_data, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>以上逻辑同样适用于其他数据接收</li>
+</ul>
+<h2 id="接收整个对象"><a href="#接收整个对象" class="headerlink" title="接收整个对象"></a>接收整个对象</h2><blockquote>
+<p>  前提：接收的内容格式是制定好的。</p>
+<p>  按照制定的协议，定义全局结构体，结构体成员为各部分数据；</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">帧头</th>
+<th align="center">模式</th>
+<th align="center">长度</th>
+<th align="center">数据</th>
+<th align="center">CRC</th>
+<th align="center">帧尾</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0xAA</td>
+<td align="center">0x01 | 0x02</td>
+<td align="center">0x03</td>
+<td align="center">X Y Z</td>
+<td align="center">模式+长度+数据</td>
+<td align="center">0xFE</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> FRAME_HEAD	0xAA</span></span><br><span class="line"><span class="meta">#defien FRAME_TAIL	0xFE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义全局结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">uint8_t</span> mode;</span><br><span class="line">    <span class="type">uint8_t</span> data_len;</span><br><span class="line">    <span class="type">uint16_t</span> X_axis;</span><br><span class="line">	<span class="type">uint16_t</span> Y_axis;</span><br><span class="line">	<span class="type">uint16_t</span> Z_axis; </span><br><span class="line">    <span class="type">uint8_t</span> CRC_8;</span><br><span class="line">&#125; GetData;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明全局变量</span></span><br><span class="line"><span class="keyword">extern</span> GetData g_Get_Data;</span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">Calculate_CRC8</span><span class="params">(<span class="type">uint8_t</span> *pData, <span class="type">uint8_t</span> Size)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">get_data_from_uart</span><span class="params">(<span class="type">uint8_t</span> uart_data, <span class="type">uint16_t</span> data_len)</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> uart1_rx_data;		<span class="comment">//定义串口接收的数据变量</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">USART1_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">uint8_t</span> RxState = <span class="number">0</span>;		<span class="comment">//定义表示当前状态机状态的静态变量</span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> err;</span><br><span class="line">	<span class="keyword">if</span> (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)</span><br><span class="line">	&#123;</span><br><span class="line">		uart1_rx_data = USART_ReceiveData(USART1);</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*当前状态为0，接收数据包包头*/</span></span><br><span class="line">		<span class="keyword">if</span> (RxState == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (RxData == FRAME_HEAD)			<span class="comment">//如果数据确实是包头</span></span><br><span class="line">			&#123;</span><br><span class="line">				RxState = <span class="number">1</span>;			<span class="comment">//置下一个状态</span></span><br><span class="line">				uart1_rx_buf_len = <span class="number">0</span>;			<span class="comment">//数据包的位置归零</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">/*当前状态为1，接收数据包数据*/</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (RxState == <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">//这里接收全部数据</span></span><br><span class="line">			uart1_rx_buf[uart1_rx_buf_len] = uart1_rx_data;	<span class="comment">//将数据存入数据包数组的指定位置</span></span><br><span class="line">			uart1_rx_buf_len ++;				<span class="comment">//数据包的位置自增</span></span><br><span class="line">			<span class="keyword">if</span> (uart1_rx_buf_len &gt;= <span class="number">1</span> + <span class="number">1</span> + uart1_rx_buf[<span class="number">1</span>] + <span class="number">1</span>)			</span><br><span class="line">			&#123;</span><br><span class="line">				RxState = <span class="number">2</span>;			<span class="comment">//置下一个状态</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">/*当前状态为2，接收数据包包尾*/</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (RxState == <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (uart1_rx_data == FRAME_TAIL)			<span class="comment">//如果数据确实是包尾部</span></span><br><span class="line">			&#123;</span><br><span class="line">                <span class="comment">//数组中接收完成,放入结构体</span></span><br><span class="line">    			err = get_data_from_uart(uart1_rx_buf, uart1_rx_buf_len);</span><br><span class="line">                <span class="keyword">if</span>(err)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//CRC错误</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    RxState = <span class="number">0</span>;			<span class="comment">//状态归0</span></span><br><span class="line">					Serial_RxFlag = <span class="number">1</span>;		<span class="comment">//接收数据包标志位置1，成功接收一个数据包</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		USART_ClearITPendingBit(USART1, USART_IT_RXNE);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">get_data_from_uart</span><span class="params">(<span class="type">uint8_t</span> uart_data, <span class="type">uint16_t</span> data_len)</span></span><br><span class="line">&#123;</span><br><span class="line">    g_Get_Data.mode = uart_data[<span class="number">0</span>];</span><br><span class="line">    g_Get_Data.data_len = uart_data[<span class="number">1</span>];</span><br><span class="line"><span class="comment">//	g_Get_Data.X_axis = uart_data[2] uart_data[3];</span></span><br><span class="line"><span class="comment">//	g_Get_Data.Y_axis = uart_data[4] uart_data[5];</span></span><br><span class="line"><span class="comment">//	g_Get_Data.Z_axis = uart_data[6] uart_data[7];</span></span><br><span class="line">    g_Get_Data.CRC_8 = Calculate_CRC8(uart_data,data_len<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span>( g_Get_Data.CRC_8^uart_data[data_len<span class="number">-1</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//err</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">Calculate_CRC8</span><span class="params">(<span class="type">uint8_t</span> *pData, <span class="type">uint8_t</span> Size)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> i;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> rCRC = <span class="number">0</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> CRC_8_POLYNOMIAL = <span class="number">0x29</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(Size--)</span><br><span class="line">    &#123;</span><br><span class="line">        rCRC ^= *pData++;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">8</span>; i&gt;<span class="number">0</span>; --i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(rCRC &amp; <span class="number">0x80</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                rCRC = (rCRC &lt;&lt; <span class="number">1</span>) ^ CRC_8_POLYNOMIAL;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                rCRC =(rCRC &lt;&lt; <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>(rCRC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jianghe-jnhe.github.io/2024/09/04/SerialNote/" title="" target="_blank" rel="external">https://jianghe-jnhe.github.io/2024/09/04/SerialNote/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jianghe-jnhe" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jianghe-jnhe" target="_blank"><span class="text-dark">JiangHe</span><small class="ml-1x">Student</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/09/04/TTL-RS232-RS485/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/01/01/myGoal/" title="新年目标"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jianghe-jnhe" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://space.bilibili.com/496375938" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2024 Jnhe
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
