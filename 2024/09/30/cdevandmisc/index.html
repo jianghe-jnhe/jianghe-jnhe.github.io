@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>002-字符与杂项 | Jnhe</title>
+  <meta name="description" content="基本概念 驱动 driver 开发（个人理解）  👇设备 device （&#x3D;&#x3D;对象&#x3D;&#x3D; objcet）  设备号（住址号）：区域 region ；（家庭住址，唯一性） 注册设备（属性（名字 name ）+行为&#x2F;操作 operations）：name |  open relaase read write   👇设备节点 Node（&#x3D;&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="002-字符与杂项">
+<meta property="og:url" content="https://jianghe-jnhe.github.io/2024/09/30/cdevandmisc/index.html">
+<meta property="og:site_name" content="Jnhe">
+<meta property="og:description" content="基本概念 驱动 driver 开发（个人理解）  👇设备 device （&#x3D;&#x3D;对象&#x3D;&#x3D; objcet）  设备号（住址号）：区域 region ；（家庭住址，唯一性） 注册设备（属性（名字 name ）+行为&#x2F;操作 operations）：name |  open relaase read write   👇设备节点 Node（&#x3D;&amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-30T11:30:00.000Z">
+<meta property="article:modified_time" content="2024-09-30T13:52:15.836Z">
+<meta property="article:author" content="Jnhe">
+<meta property="article:tag" content="Linux驱动">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://jianghe-jnhe.github.io/2024/09/30/cdevandmisc/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jnhe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/jianghe-jnhe" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">JiangHe</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Student</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangXi, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jianghe-jnhe" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://space.bilibili.com/496375938" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>不打鸡血，不摆烂</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E9%A9%B1%E5%8A%A8/" rel="tag">Linux驱动</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Linux%E9%A9%B1%E5%8A%A8/" style="font-size: 14px;">Linux驱动</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13px;">操作系统</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/10/01/ProcessandThread/" class="title">003-进程与线程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-10-01T12:00:00.000Z" itemprop="datePublished">2024-10-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/30/cdevandmisc/" class="title">002-字符与杂项</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-30T11:30:00.000Z" itemprop="datePublished">2024-09-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/23/DriveBasis/" class="title">001-驱动基础</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-23T11:30:00.000Z" itemprop="datePublished">2024-09-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/04/SerialNote/" class="title">单片机串口通用收发功能笔记</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-04T08:26:56.000Z" itemprop="datePublished">2024-09-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/01/01/myGoal/" class="title">新年目标</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-12-31T16:00:00.000Z" itemprop="datePublished">2024-01-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-cdevandmisc" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      002-字符与杂项
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/09/30/cdevandmisc/" class="article-date">
+	  <time datetime="2024-09-30T11:30:00.000Z" itemprop="datePublished">2024-09-30</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E9%A9%B1%E5%8A%A8/" rel="tag">Linux驱动</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/09/30/cdevandmisc/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><p>驱动 <code>driver</code> 开发（个人理解）</p>
+<ul>
+<li><p>👇设备 <code>device </code>（&#x3D;&#x3D;对象&#x3D;&#x3D; <code>objcet</code>）</p>
+<ul>
+<li>设备号（住址号）：区域 <code>region</code> ；（家庭住址，唯一性）</li>
+<li>注册设备（属性（名字 <code>name</code> ）+行为&#x2F;操作 <code>operations</code>）：<code>name</code> |  <code>open</code> <code>relaase</code> <code>read</code> <code>write</code></li>
+</ul>
+</li>
+<li><p>👇设备节点 <code>Node</code>（&#x3D;&#x3D;类&#x3D;&#x3D; <code>class</code>）</p>
+</li>
+<li><p>👆内核<code>kernel</code></p>
+</li>
+</ul>
+</li>
+<li><p>有创建 <code>create</code> 就有销毁 <code>destory</code></p>
+</li>
+</ul>
+<h2 id="字符设备"><a href="#字符设备" class="headerlink" title="字符设备"></a>字符设备</h2><ul>
+<li><p>字符&#x3D;&#x3D;设备号&#x3D;&#x3D;的申请</p>
+<ul>
+<li><p>设备号类型 <code>dev_t</code> （无符号的 32 位整形类型 <code>unsigned int</code> ：高12位表示主设备号，低20位表示次设备号）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/types.h */</span></span><br><span class="line"><span class="keyword">typedef</span> u32 <span class="type">__kernel_dev_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">__kernel_dev_t</span> <span class="type">dev_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* kernel/include/uapi/asm-generic/int-ll64.h */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> __u32;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//API</span></span><br><span class="line"><span class="comment">/* kernel/include/linux/kdev_t.h */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MINORBITS 20									 <span class="comment">/* 次设备号位数 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MINORMASK ((1U &lt;&lt; MINORBITS) - 1) 				 <span class="comment">/* 次设备号掩码 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAJOR(dev) ((unsigned int) ((dev) &gt;&gt; MINORBITS)) <span class="comment">/* dev右移20位得到主设备号 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MINOR(dev) ((unsigned int) ((dev) &amp; MINORMASK))  <span class="comment">/* 与次设备掩码与，得到次设备号 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MKDEV(ma,mi) (((ma) &lt;&lt; MINORBITS) | (mi))		 <span class="comment">/* MKDEV 宏将主设备号左移20位，然后与次设备号相与, 得到设备号*/</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态申请</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/fs.h */</span></span><br><span class="line"><span class="comment">//int register_chrdev_region(设备号, 设备数量, 设备名称)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">register_chrdev_region</span><span class="params">(<span class="type">dev_t</span> from, <span class="type">unsigned</span> count, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态申请</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/fs.h */</span></span><br><span class="line"><span class="comment">//int alloc_chrdev_region(设备号（数组形式）, 次设备号可申请最小值, 设备数量, 设备名称)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">alloc_chrdev_region</span><span class="params">(<span class="type">dev_t</span> *dev, <span class="type">unsigned</span> baseminor, <span class="type">unsigned</span> count, <span class="type">const</span> <span class="type">char</span> *name)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>字符&#x3D;&#x3D;设备&#x3D;&#x3D;的注册与注销</p>
+<ul>
+<li><p>字符设备<code>cdev</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/cdev.h */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> <span class="title">kobj</span>;</span> 				<span class="comment">//内嵌的内核对象.</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">module</span> *<span class="title">owner</span>;</span> 				<span class="comment">//该字符设备所在的内核模块的对象指针.</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> *<span class="title">ops</span>;</span> 	<span class="comment">//该结构描述了字符设备所能实现的方法，是极为关键的一个结构体.</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">list</span>;</span> 				<span class="comment">//用来将已经向内核注册的所有字符设备形成链表.</span></span><br><span class="line">    <span class="type">dev_t</span> dev; 							<span class="comment">//字符设备的设备号，由主设备号和次设备号构成.</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> count; 				<span class="comment">//隶属于同一主设备号的次设备号的个数.</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化 <code>init</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/cdev.h */</span></span><br><span class="line"><span class="comment">//void cdev_init(字符设备/结构体/对象, 操作/结构体/行为)</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">cdev_init</span><span class="params">(<span class="keyword">struct</span> cdev *cdev, <span class="type">const</span> <span class="keyword">struct</span> file_operations *fops)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加 <code>add</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/cdev.h */</span></span><br><span class="line"><span class="comment">//int cdev_add(字符设备/结构体/对象, 设备号, 设备数量)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">cdev_add</span><span class="params">(<span class="keyword">struct</span> cdev *p, <span class="type">dev_t</span> dev, <span class="type">unsigned</span> count)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除 <code>del</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/fs.h */</span></span><br><span class="line"><span class="comment">//void cdev_del(字符设备/结构体/对象)</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">cdev_del</span><span class="params">(<span class="keyword">struct</span> cdev *p)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>字符设备的&#x3D;&#x3D;操作&#x3D;&#x3D;</p>
+<ul>
+<li><p>文件操作集 <code>file_operations</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/cdev.h */</span></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">cdev_fops_test</span> =</span> &#123;</span><br><span class="line">    .owner = THIS_MODULE,		<span class="comment">//将 owner 字段指向本模块，可以避免在模块的操作正在被使用时卸载该模块</span></span><br><span class="line">    .open = chrdev_open,		<span class="comment">//将 open 字段指向 chrdev_open(...)函数</span></span><br><span class="line">    .read = chrdev_read,		<span class="comment">//将 read 字段指向 chrdev_read(...)函数</span></span><br><span class="line">    .write = chrdev_write,		<span class="comment">//将 write 字段指向 chrdev_write(...)函数</span></span><br><span class="line">    .release = chrdev_release,	<span class="comment">//将 release 字段指向 chrdev_release(...)函数</span></span><br><span class="line">&#125;;								<span class="comment">//定义 file_operations 结构体类型的变量 cdev_test_ops</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>操作函数（为应用层操作函数提供接口）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">chrdev_open</span><span class="params">(<span class="keyword">struct</span> inode *inode, <span class="keyword">struct</span> file *file)</span></span><br><span class="line">&#123;</span><br><span class="line">    printk(<span class="string">&quot;This is chrdev_open \n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">chrdev_read</span><span class="params">(<span class="keyword">struct</span> file *file,<span class="type">char</span> __user *buf, <span class="type">size_t</span> size, <span class="type">loff_t</span> *off)</span></span><br><span class="line">&#123;</span><br><span class="line">    printk(<span class="string">&quot;This is chrdev_read \n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">chrdev_write</span><span class="params">(<span class="keyword">struct</span> file *file,<span class="type">const</span> <span class="type">char</span> __user *buf,<span class="type">size_t</span> size,<span class="type">loff_t</span> *off)</span></span><br><span class="line">&#123;</span><br><span class="line">    printk(<span class="string">&quot;This is chrdev_write \n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">chrdev_release</span><span class="params">(<span class="keyword">struct</span> inode *inode, <span class="keyword">struct</span> file *file)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="设备节点"><a href="#设备节点" class="headerlink" title="设备节点"></a>设备节点</h2><ul>
+<li><p>节点创建</p>
+<ul>
+<li><p>手动创建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">mknod</span> 节点名称 设备类型 主设备号 从设备号</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">mknod</span> NAME TYPE MAJOR MINOR</span></span><br><span class="line">mknod /dev/device_test c 234 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自动创建</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/device/class.h */</span></span><br><span class="line"><span class="comment">//class_create(节点/结构体/类, 节点名称)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> class_create(owner, name) (&#123;static struct lock_class_key __key; __class_create(owner, name, &amp;__key);&#125;)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>节点销毁</p>
+<ul>
+<li><p>销毁</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/device/class.h */</span></span><br><span class="line"><span class="comment">//void class_destroy(节点/结构体/类)</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">class_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="设备与节点"><a href="#设备与节点" class="headerlink" title="设备与节点"></a>设备与节点</h2><ul>
+<li><p>设备：字符设备、块设备、网络设备</p>
+</li>
+<li><p>节点：类</p>
+</li>
+<li><p>关联</p>
+<ul>
+<li><p>设备创建</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/device.h */</span></span><br><span class="line"><span class="comment">//device_create(节点/结构体/类, 该设备的父设备或NULL, 设备号, 被添加到该设备回调的数据或NULL, 设备节点名称)</span></span><br><span class="line">device_create( (<span class="keyword">struct</span> class *cls, <span class="keyword">struct</span> device *parent, <span class="type">dev_t</span> devt,<span class="type">void</span> *drvdata, <span class="type">const</span> <span class="type">char</span> *fmt);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设备销毁</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* kernel/include/linux/device.h */</span></span><br><span class="line"><span class="comment">//device_create(节点/结构体/类, 设备号)</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">device_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls, <span class="type">dev_t</span> devt)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="模板记住"><a href="#模板记住" class="headerlink" title="模板记住"></a>模板记住</h2><ul>
+<li><p>字符驱动（记住顺序）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 头文件 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 1.定义字符设备结构体变量-对象 */</span></span><br><span class="line"><span class="comment">/* 2.定义设备号-家庭住址/唯一标识ID */</span></span><br><span class="line"><span class="comment">/* 3.定义file_operations结构体类型变量-操作 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 1.定义设备节点-类 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 4.实现file_operations中的操作函数集-请在3之前声明/放在3之前 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 5.模块加载 */</span></span><br><span class="line"><span class="comment">/* 5.模块卸载 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 参数传入（可选） */</span></span><br><span class="line"><span class="comment">/* 符号导出（可选） */</span></span><br><span class="line"><span class="comment">/* 开源协议（可选） */</span></span><br><span class="line"><span class="comment">/* 作者信息（可选） */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>杂项驱动</p>
+<ul>
+<li>固定主设备号10</li>
+<li>无需设置设备节点</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jianghe-jnhe.github.io/2024/09/30/cdevandmisc/" title="002-字符与杂项" target="_blank" rel="external">https://jianghe-jnhe.github.io/2024/09/30/cdevandmisc/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jianghe-jnhe" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jianghe-jnhe" target="_blank"><span class="text-dark">JiangHe</span><small class="ml-1x">Student</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/10/01/ProcessandThread/" title="003-进程与线程"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/09/23/DriveBasis/" title="001-驱动基础"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jianghe-jnhe" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://space.bilibili.com/496375938" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2024 Jnhe
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
