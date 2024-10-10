@@ -17,16 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2024/9 | Jnhe</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jnhe">
-<meta property="og:url" content="https://jianghe-jnhe.github.io/archives/2024/09/index.html">
+  <title>enum typedef define | Jnhe</title>
+  <meta name="description" content="enum枚举enum  int  define  12345enum Color &#123;    RED &#x3D; 1,    GREEN,    BLUE&#125;;  typedef   为现有的数据类型创建一个新的名字。它是一种类型别名声明，使得代码更加清晰和易于维护,提高代码的可读性，   格式 1234567891011121314151617&#x2F;&#x2F; typedef 存在的数据类型 数据类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="enum typedef define">
+<meta property="og:url" content="https://jianghe-jnhe.github.io/2024/10/10/enum-typedef-define/index.html">
 <meta property="og:site_name" content="Jnhe">
+<meta property="og:description" content="enum枚举enum  int  define  12345enum Color &#123;    RED &#x3D; 1,    GREEN,    BLUE&#125;;  typedef   为现有的数据类型创建一个新的名字。它是一种类型别名声明，使得代码更加清晰和易于维护,提高代码的可读性，   格式 1234567891011121314151617&#x2F;&#x2F; typedef 存在的数据类型 数据类">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-10T05:15:56.000Z">
+<meta property="article:modified_time" content="2024-10-10T07:19:14.730Z">
 <meta property="article:author" content="Jnhe">
+<meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jianghe-jnhe.github.io/archives/2024/09/index.html">
+  <link rel="canonical" href="https://jianghe-jnhe.github.io/2024/10/10/enum-typedef-define/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jnhe" type="application/atom+xml">
   
@@ -269,78 +274,133 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2024/9</h1>
-	      <p class="text-muted">共 13 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-enum-typedef-define" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      enum typedef define
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2024" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2024
-            </a>
-            <!-- <a href="/archives/2024" class="archive-year">2024</a> -->
-          </h3>
-        </div>
-        <div id="collapse2024" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2024">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/10/10/enum-typedef-define/" class="article-date">
+	  <time datetime="2024-10-10T05:15:56.000Z" itemprop="datePublished">2024-10-10</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/C/" rel="tag">C</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/10/10/enum-typedef-define/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="enum枚举"><a href="#enum枚举" class="headerlink" title="enum枚举"></a>enum枚举</h2><p><code>enum</code>  <code>int</code>  <code>define</code> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Color</span> &#123;</span></span><br><span class="line">    RED = <span class="number">1</span>,</span><br><span class="line">    GREEN,</span><br><span class="line">    BLUE</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="typedef"><a href="#typedef" class="headerlink" title="typedef"></a>typedef</h2><blockquote>
+<p>  为现有的数据类型创建一个新的名字。它是一种类型别名声明，使得代码更加清晰和易于维护,提高代码的可读性，</p>
+</blockquote>
+<ul>
+<li><p>格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// typedef 存在的数据类型 数据类型新名字;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//常见数据类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> <span class="type">uint8_t</span>;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Rectangle</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> width;</span><br><span class="line">    <span class="type">int</span> height;</span><br><span class="line">&#125; Rectangle;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数指针</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">float</span> <span class="params">(*<span class="type">op_t</span>)</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">float</span> <span class="title function_">calc</span><span class="params">(<span class="type">int</span> num, <span class="type">op_t</span> op)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> op(num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="define"><a href="#define" class="headerlink" title="#define"></a>#define</h2><ul>
+<li><p>内容替换</p>
+</li>
+<li><p>参数参入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下程序的输出结果</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DOUBLE(a)	a+a</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = DOUBLE(<span class="number">5</span>) * <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, n)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正确结果：30</span></span><br><span class="line"><span class="number">5</span>+<span class="number">5</span>*<span class="number">5</span> = <span class="number">5</span>+<span class="number">25</span> = <span class="number">30</span></span><br><span class="line"><span class="comment">//错误结果：50</span></span><br><span class="line"><span class="number">5</span>+<span class="number">5</span>=<span class="number">10</span></span><br><span class="line"><span class="number">10</span>*<span class="number">5</span>=<span class="number">50</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jianghe-jnhe.github.io/2024/10/10/enum-typedef-define/" title="enum typedef define" target="_blank" rel="external">https://jianghe-jnhe.github.io/2024/10/10/enum-typedef-define/</a>
+    </li>
     
-<a href="/2024/09/30/cdevandmisc/" class="collection-item"  target="_blank"   itemprop="url">
-  <time datetime="2024-09-30T11:30:00.000Z" itemprop="datePublished">2024-09-30</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 002-字符与杂项
-</a>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jianghe-jnhe" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jianghe-jnhe" target="_blank"><span class="text-dark">JiangHe</span><small class="ml-1x">Student</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
 
 
   
-    
-    
-    
-<a href="/2024/09/23/DriveBasis/" class="collection-item"  target="_blank"   itemprop="url">
-  <time datetime="2024-09-23T11:30:00.000Z" itemprop="datePublished">2024-09-23</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 001-驱动基础
-</a>
+</div>
 
-
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
+  <ul class="pager pull-left">
     
     
-    
-<a href="/2024/09/04/TTL-RS232-RS485/" class="collection-item"  target="_blank"   itemprop="url">
-  <time datetime="2024-09-04T08:30:56.000Z" itemprop="datePublished">2024-09-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> TTL RS232 RS485
-</a>
-
-
-  
+    <li class="next">
+      <a href="/2024/10/10/struct-union/" title="struct union"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
-    
-<a href="/2024/09/04/SerialNote/" class="collection-item"  target="_blank"   itemprop="url">
-  <time datetime="2024-09-04T08:26:56.000Z" itemprop="datePublished">2024-09-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 串口收发
-</a>
-
-
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -397,6 +457,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
