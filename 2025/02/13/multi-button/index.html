@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>multi_button | Jnhe</title>
+  <meta name="description" content="涉及内容 C语言 单链表 状态机 回调函数  快速上手 准备  源码：multi_button.h和multi_button.c 用户编写：main.c、bsp_key.h和bsp_key.c  bsp_key.h 123456789101112131415#ifndef __BSP_KEY_H#define __BSP_KEY_H#include &quot;multi_button.h&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="multi_button">
+<meta property="og:url" content="https://jianghe-jnhe.github.io/2025/02/13/multi-button/index.html">
+<meta property="og:site_name" content="Jnhe">
+<meta property="og:description" content="涉及内容 C语言 单链表 状态机 回调函数  快速上手 准备  源码：multi_button.h和multi_button.c 用户编写：main.c、bsp_key.h和bsp_key.c  bsp_key.h 123456789101112131415#ifndef __BSP_KEY_H#define __BSP_KEY_H#include &quot;multi_button.h&amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-13T08:47:43.103Z">
+<meta property="article:modified_time" content="2025-02-13T08:50:58.561Z">
+<meta property="article:author" content="Jnhe">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://jianghe-jnhe.github.io/2025/02/13/multi-button/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jnhe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/jianghe-jnhe" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">JiangHe</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Student</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangXi, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jianghe-jnhe" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://space.bilibili.com/496375938" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>不打鸡血，不摆烂</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E9%A9%B1%E5%8A%A8/" rel="tag">Linux驱动</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 14px;">C</a> <a href="/tags/Linux%E9%A9%B1%E5%8A%A8/" style="font-size: 13.5px;">Linux驱动</a> <a href="/tags/QT/" style="font-size: 13px;">QT</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13px;">操作系统</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/13/multi-button/" class="title">multi_button</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-13T08:47:43.103Z" itemprop="datePublished">2025-02-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/12/29/ResumeAttachment/" class="title">简历附件</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-12-29T13:27:01.653Z" itemprop="datePublished">2024-12-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/10/10/QTLayoutandQSS/" class="title">QT</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-10-10T14:15:56.000Z" itemprop="datePublished">2024-10-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/10/10/enum-typedef-define/" class="title">enum typedef define</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-10-10T05:15:56.000Z" itemprop="datePublished">2024-10-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/10/10/struct-union/" class="title">struct union</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-10-10T04:15:56.000Z" itemprop="datePublished">2024-10-10</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-multi-button" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      multi_button
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2025/02/13/multi-button/" class="article-date">
+	  <time datetime="2025-02-13T08:47:43.103Z" itemprop="datePublished">2025-02-13</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/02/13/multi-button/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="涉及内容"><a href="#涉及内容" class="headerlink" title="涉及内容"></a>涉及内容</h2><ul>
+<li>C语言</li>
+<li>单链表</li>
+<li>状态机</li>
+<li>回调函数</li>
+</ul>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><ul>
+<li><p>准备</p>
+<ul>
+<li>源码：<code>multi_button.h</code>和<code>multi_button.c</code></li>
+<li>用户编写：<code>main.c</code>、<code>bsp_key.h</code>和<code>bsp_key.c</code></li>
+</ul>
+<p><code>bsp_key.h</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __BSP_KEY_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __BSP_KEY_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;multi_button.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">GPIO_KEY_Init</span><span class="params">(<span class="type">void</span>)</span>;<span class="comment">//IO初始化</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">MultiButton_Init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">BTN1_PRESS_DOWN_Handler</span><span class="params">(<span class="type">void</span>* btn)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">BTN1_PRESS_UP_Handler</span><span class="params">(<span class="type">void</span>* btn)</span>;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>bsp_key.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_key.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Button</span> <span class="title">btn1</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Button</span> <span class="title">btn2</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//IO初始化</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">GPIO_KEY_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">read_button1_GPIO</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> HAL_GPIO_ReadPin(xxx1_GPIO_Port, xxx1_Pin);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">read_button2_GPIO</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> HAL_GPIO_ReadPin(xxx2_GPIO_Port, xxx2_Pin);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">MultiButton_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//按键初始化</span></span><br><span class="line">	button_init(&amp;btn1, read_button1_GPIO, <span class="number">0</span>);<span class="comment">//0表示按键按下时，GPIO为低电平</span></span><br><span class="line">	button_init(&amp;btn2, read_button2_GPIO, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//按键注册 事件注册</span></span><br><span class="line">	button_attach(&amp;btn1, PRESS_DOWN,       BTN1_PRESS_DOWN_Handler);</span><br><span class="line">	button_attach(&amp;btn1, PRESS_UP,         BTN1_PRESS_UP_Handler);</span><br><span class="line">	button_attach(&amp;btn1, PRESS_REPEAT,     BTN1_PRESS_REPEAT_Handler);</span><br><span class="line">	button_attach(&amp;btn1, SINGLE_CLICK,     BTN1_SINGLE_Click_Handler);</span><br><span class="line">	button_attach(&amp;btn1, DOUBLE_CLICK,     BTN1_DOUBLE_Click_Handler);</span><br><span class="line">	button_attach(&amp;btn1, LONG_PRESS_START, BTN1_LONG_PRESS_START_Handler);</span><br><span class="line">	button_attach(&amp;btn1, LONG_PRESS_HOLD,  BTN1_LONG_PRESS_HOLD_Handler);</span><br><span class="line"></span><br><span class="line">	button_attach(&amp;btn2, PRESS_DOWN,       BTN2_PRESS_DOWN_Handler);</span><br><span class="line">	button_attach(&amp;btn2, PRESS_UP,         BTN2_PRESS_UP_Handler);</span><br><span class="line">	button_attach(&amp;btn2, PRESS_REPEAT,     BTN2_PRESS_REPEAT_Handler);</span><br><span class="line">	button_attach(&amp;btn2, SINGLE_CLICK,     BTN2_SINGLE_Click_Handler);</span><br><span class="line">	button_attach(&amp;btn2, DOUBLE_CLICK,     BTN2_DOUBLE_Click_Handler);</span><br><span class="line">	button_attach(&amp;btn2, LONG_PRESS_START, BTN2_LONG_PRESS_START_Handler);</span><br><span class="line">	button_attach(&amp;btn2, LONG_PRESS_HOLD,  BTN2_LONG_PRESS_HOLD_Handler);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//按键开始</span></span><br><span class="line">	button_start(&amp;btn1);</span><br><span class="line">	button_start(&amp;btn2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在此回调函数内执行相应操作</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">BTN1_PRESS_DOWN_Handler</span><span class="params">(<span class="type">void</span>* btn)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//do something...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">BTN1_PRESS_UP_Handler</span><span class="params">(<span class="type">void</span>* btn)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//do something...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p><code>main.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_key.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    GPIO_KEY_Init();</span><br><span class="line">    MultiButton_Init();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/**** 每隔5ms 按键扫描 *****/</span></span><br><span class="line">        <span class="comment">//用定时器中断，做一个5ms的定时器，或者用systick</span></span><br><span class="line">		<span class="keyword">if</span>(g_b_5ms_flag)</span><br><span class="line">		&#123; </span><br><span class="line">			g_b_5ms_flag=<span class="number">0</span>;		<span class="comment">//清除</span></span><br><span class="line">			<span class="comment">//扫描函数</span></span><br><span class="line">			button_ticks();</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h2><ul>
+<li>为按键创建一个单链表，分别挂载：按键1、按键2……；<ul>
+<li>每个按键的结构体中包含其属性、回调函数和指向下一个按键的指针</li>
+<li>按键属性采用位域的方式，减小内存占用</li>
+<li>按键中回调函数有检测输入电平的函数，也有要执行具体按下类型的回调函数，以数组的形式存储。</li>
+<li>通过包含指向下一个按键的指针，构建一个链表。对于按键的操作也即是对单链表的操作。</li>
+</ul>
+</li>
+<li>每5ms对整个链表进行遍历，遍历到某一按键，例如按键2，对其进行处理，包括状态机（哪种类型的按下：单击、双击、释放、长按、短按等）<ul>
+<li>当发现按键2被按下时，先消抖，然后状态机判断并执行相应的回调函数，最后各种状态值恢复，继续遍历。</li>
+</ul>
+</li>
+<li>状态机</li>
+<li>回调函数具体实现-留给用户写</li>
+</ul>
+<h2 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本单位（时间）：5ms为1单位 TICKS_INTERVAL</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TICKS_INTERVAL    5	<span class="comment">//ms</span></span></span><br><span class="line"><span class="comment">//消抖时长：3个单位，最大为8个单位（3*5ms=15ms，消抖15ms）</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEBOUNCE_TICKS    3	<span class="comment">//MAX 8</span></span></span><br><span class="line"><span class="comment">//时长判断标准：小于300个单位的为短，大于1000个单位的为长</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHORT_TICKS       (300 /TICKS_INTERVAL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LONG_TICKS        (1000 /TICKS_INTERVAL)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按键按下的类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">	PRESS_DOWN = <span class="number">0</span>,</span><br><span class="line">	PRESS_UP,</span><br><span class="line">	PRESS_REPEAT,</span><br><span class="line">	SINGLE_CLICK,</span><br><span class="line">	DOUBLE_CLICK,</span><br><span class="line">	LONG_PRESS_START,</span><br><span class="line">	LONG_PRESS_HOLD,</span><br><span class="line">	number_of_event,</span><br><span class="line">	NONE_PRESS</span><br><span class="line">&#125;PressEvent;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按键结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Button</span> &#123;</span></span><br><span class="line">	<span class="type">uint16_t</span> ticks;<span class="comment">//时长计数</span></span><br><span class="line">	<span class="type">uint8_t</span>  repeat : <span class="number">4</span>;<span class="comment">//判断单击or双击</span></span><br><span class="line">	<span class="type">uint8_t</span>  event : <span class="number">4</span>;<span class="comment">//按键按下的类型</span></span><br><span class="line">	<span class="type">uint8_t</span>  state : <span class="number">3</span>;<span class="comment">//状态机</span></span><br><span class="line">	<span class="type">uint8_t</span>  debounce_cnt : <span class="number">3</span>;<span class="comment">//消抖次数</span></span><br><span class="line">	<span class="type">uint8_t</span>  active_level : <span class="number">1</span>;<span class="comment">//按键按下时，是高电平or低电平</span></span><br><span class="line">	<span class="type">uint8_t</span>  button_level : <span class="number">1</span>;<span class="comment">//检测GPIO电平，与active_level比对</span></span><br><span class="line">	<span class="type">uint8_t</span>  (*hal_button_Level)(<span class="type">void</span>);<span class="comment">//检测GPIO电平的回调函数，参数为void，可以设为uint8_t button_id</span></span><br><span class="line">	BtnCallback  cb[number_of_event];<span class="comment">//执行按键按下事件的回调函数，数组形式的回调函数，表示含有多个回调函数</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Button</span>* <span class="title">next</span>;</span><span class="comment">//指向下一个按键</span></span><br><span class="line">&#125;Button;</span><br></pre></td></tr></table></figure>
+
+<h2 id="源码附录"><a href="#源码附录" class="headerlink" title="源码附录"></a>源码附录</h2><p><code>multi_button.h</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2016 Zibin Zheng &lt;znbin@qq.com&gt;</span></span><br><span class="line"><span class="comment"> * All rights reserved</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _MULTI_BUTTON_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _MULTI_BUTTON_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;string.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//According to your need to modify the constants.</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TICKS_INTERVAL    5	<span class="comment">//ms</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEBOUNCE_TICKS    3	<span class="comment">//MAX 8</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHORT_TICKS       (300 /TICKS_INTERVAL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LONG_TICKS        (1000 /TICKS_INTERVAL)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*BtnCallback)</span><span class="params">(<span class="type">void</span>*)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">	PRESS_DOWN = <span class="number">0</span>,</span><br><span class="line">	PRESS_UP,</span><br><span class="line">	PRESS_REPEAT,</span><br><span class="line">	SINGLE_CLICK,</span><br><span class="line">	DOUBLE_CLICK,</span><br><span class="line">	LONG_PRESS_START,</span><br><span class="line">	LONG_PRESS_HOLD,</span><br><span class="line">	number_of_event,</span><br><span class="line">	NONE_PRESS</span><br><span class="line">&#125;PressEvent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Button</span> &#123;</span></span><br><span class="line">	<span class="type">uint16_t</span> ticks;</span><br><span class="line">	<span class="type">uint8_t</span>  repeat : <span class="number">4</span>;</span><br><span class="line">	<span class="type">uint8_t</span>  event : <span class="number">4</span>;</span><br><span class="line">	<span class="type">uint8_t</span>  state : <span class="number">3</span>;</span><br><span class="line">	<span class="type">uint8_t</span>  debounce_cnt : <span class="number">3</span>;</span><br><span class="line">	<span class="type">uint8_t</span>  active_level : <span class="number">1</span>;</span><br><span class="line">	<span class="type">uint8_t</span>  button_level : <span class="number">1</span>;</span><br><span class="line">	<span class="type">uint8_t</span>  (*hal_button_Level)(<span class="type">void</span>);</span><br><span class="line">	BtnCallback  cb[number_of_event];</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Button</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;Button;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_init</span><span class="params">(<span class="keyword">struct</span> Button* handle, <span class="type">uint8_t</span>(*pin_level)(), <span class="type">uint8_t</span> active_level)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">button_attach</span><span class="params">(<span class="keyword">struct</span> Button* handle, PressEvent event, BtnCallback cb)</span>;</span><br><span class="line">PressEvent <span class="title function_">get_button_event</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span>;</span><br><span class="line"><span class="type">int</span>  <span class="title function_">button_start</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">button_stop</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">button_ticks</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>multi_button.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2016 Zibin Zheng &lt;znbin@qq.com&gt;</span></span><br><span class="line"><span class="comment"> * All rights reserved</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;multi_button.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EVENT_CB(ev)   <span class="keyword">if</span>(handle-&gt;cb[ev])handle-&gt;cb[ev]((Button*)handle)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//button handle list head.</span></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">Button</span>* <span class="title">head_handle</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Initializes the button struct handle.</span></span><br><span class="line"><span class="comment">  * @param  handle: the button handle strcut.</span></span><br><span class="line"><span class="comment">  * @param  pin_level: read the HAL GPIO of the connet button level.</span></span><br><span class="line"><span class="comment">  * @param  active_level: pressed GPIO level.</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_init</span><span class="params">(<span class="keyword">struct</span> Button* handle, <span class="type">uint8_t</span>(*pin_level)(), <span class="type">uint8_t</span> active_level)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">memset</span>(handle, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Button));</span><br><span class="line">	handle-&gt;event = (<span class="type">uint8_t</span>)NONE_PRESS;</span><br><span class="line">	handle-&gt;hal_button_Level = pin_level;</span><br><span class="line">	handle-&gt;button_level = handle-&gt;hal_button_Level();</span><br><span class="line">	handle-&gt;active_level = active_level;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Attach the button event callback function.</span></span><br><span class="line"><span class="comment">  * @param  handle: the button handle strcut.</span></span><br><span class="line"><span class="comment">  * @param  event: trigger event type.</span></span><br><span class="line"><span class="comment">  * @param  cb: callback function.</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_attach</span><span class="params">(<span class="keyword">struct</span> Button* handle, PressEvent event, BtnCallback cb)</span></span><br><span class="line">&#123;</span><br><span class="line">	handle-&gt;cb[event] = cb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Inquire the button event happen.</span></span><br><span class="line"><span class="comment">  * @param  handle: the button handle strcut.</span></span><br><span class="line"><span class="comment">  * @retval button event.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">PressEvent <span class="title function_">get_button_event</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> (PressEvent)(handle-&gt;event);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Button driver core function, driver state machine.</span></span><br><span class="line"><span class="comment">  * @param  handle: the button handle strcut.</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_handler</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">uint8_t</span> read_gpio_level = handle-&gt;hal_button_Level();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//ticks counter working..</span></span><br><span class="line">	<span class="keyword">if</span>((handle-&gt;state) &gt; <span class="number">0</span>) handle-&gt;ticks++;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*------------button debounce handle---------------*/</span></span><br><span class="line">	<span class="keyword">if</span>(read_gpio_level != handle-&gt;button_level) &#123; <span class="comment">//not equal to prev one</span></span><br><span class="line">		<span class="comment">//continue read 3 times same new level change</span></span><br><span class="line">		<span class="keyword">if</span>(++(handle-&gt;debounce_cnt) &gt;= DEBOUNCE_TICKS) &#123;</span><br><span class="line">			handle-&gt;button_level = read_gpio_level;</span><br><span class="line">			handle-&gt;debounce_cnt = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">//leved not change ,counter reset.</span></span><br><span class="line">		handle-&gt;debounce_cnt = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*-----------------State machine-------------------*/</span></span><br><span class="line">	<span class="keyword">switch</span> (handle-&gt;state) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">if</span>(handle-&gt;button_level == handle-&gt;active_level) &#123;	<span class="comment">//start press down</span></span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)PRESS_DOWN;</span><br><span class="line">			EVENT_CB(PRESS_DOWN);</span><br><span class="line">			handle-&gt;ticks = <span class="number">0</span>;</span><br><span class="line">			handle-&gt;repeat = <span class="number">1</span>;</span><br><span class="line">			handle-&gt;state = <span class="number">1</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)NONE_PRESS;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		<span class="keyword">if</span>(handle-&gt;button_level != handle-&gt;active_level) &#123; <span class="comment">//released press up</span></span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)PRESS_UP;</span><br><span class="line">			EVENT_CB(PRESS_UP);</span><br><span class="line">			handle-&gt;ticks = <span class="number">0</span>;</span><br><span class="line">			handle-&gt;state = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(handle-&gt;ticks &gt; LONG_TICKS) &#123;</span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)LONG_PRESS_START;</span><br><span class="line">			EVENT_CB(LONG_PRESS_START);</span><br><span class="line">			handle-&gt;state = <span class="number">5</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">if</span>(handle-&gt;button_level == handle-&gt;active_level) &#123; <span class="comment">//press down again</span></span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)PRESS_DOWN;</span><br><span class="line">			EVENT_CB(PRESS_DOWN);</span><br><span class="line">			handle-&gt;repeat++;</span><br><span class="line">			EVENT_CB(PRESS_REPEAT); <span class="comment">// repeat hit</span></span><br><span class="line">			handle-&gt;ticks = <span class="number">0</span>;</span><br><span class="line">			handle-&gt;state = <span class="number">3</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(handle-&gt;ticks &gt; SHORT_TICKS) &#123; <span class="comment">//released timeout</span></span><br><span class="line">			<span class="keyword">if</span>(handle-&gt;repeat == <span class="number">1</span>) &#123;</span><br><span class="line">				handle-&gt;event = (<span class="type">uint8_t</span>)SINGLE_CLICK;</span><br><span class="line">				EVENT_CB(SINGLE_CLICK);</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span>(handle-&gt;repeat == <span class="number">2</span>) &#123;</span><br><span class="line">				handle-&gt;event = (<span class="type">uint8_t</span>)DOUBLE_CLICK;</span><br><span class="line">				EVENT_CB(DOUBLE_CLICK); <span class="comment">// repeat hit</span></span><br><span class="line">			&#125;</span><br><span class="line">			handle-&gt;state = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		<span class="keyword">if</span>(handle-&gt;button_level != handle-&gt;active_level) &#123; <span class="comment">//released press up</span></span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)PRESS_UP;</span><br><span class="line">			EVENT_CB(PRESS_UP);</span><br><span class="line">			<span class="keyword">if</span>(handle-&gt;ticks &lt; SHORT_TICKS) &#123;</span><br><span class="line">				handle-&gt;ticks = <span class="number">0</span>;</span><br><span class="line">				handle-&gt;state = <span class="number">2</span>; <span class="comment">//repeat press</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				handle-&gt;state = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">		<span class="keyword">if</span>(handle-&gt;button_level == handle-&gt;active_level) &#123;</span><br><span class="line">			<span class="comment">//continue hold trigger</span></span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)LONG_PRESS_HOLD;</span><br><span class="line">			EVENT_CB(LONG_PRESS_HOLD);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123; <span class="comment">//releasd</span></span><br><span class="line">			handle-&gt;event = (<span class="type">uint8_t</span>)PRESS_UP;</span><br><span class="line">			EVENT_CB(PRESS_UP);</span><br><span class="line">			handle-&gt;state = <span class="number">0</span>; <span class="comment">//reset</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Start the button work, add the handle into work list.</span></span><br><span class="line"><span class="comment">  * @param  handle: target handle strcut.</span></span><br><span class="line"><span class="comment">  * @retval 0: succeed. -1: already exist.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">button_start</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Button</span>* <span class="title">target</span> =</span> head_handle;</span><br><span class="line">	<span class="keyword">while</span>(target) &#123;</span><br><span class="line">		<span class="keyword">if</span>(target == handle) <span class="keyword">return</span> <span class="number">-1</span>;	<span class="comment">//already exist.</span></span><br><span class="line">		target = target-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	handle-&gt;next = head_handle;</span><br><span class="line">	head_handle = handle;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Stop the button work, remove the handle off work list.</span></span><br><span class="line"><span class="comment">  * @param  handle: target handle strcut.</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_stop</span><span class="params">(<span class="keyword">struct</span> Button* handle)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Button</span>** <span class="title">curr</span>;</span></span><br><span class="line">	<span class="keyword">for</span>(curr = &amp;head_handle; *curr; ) &#123;</span><br><span class="line">		<span class="class"><span class="keyword">struct</span> <span class="title">Button</span>* <span class="title">entry</span> =</span> *curr;</span><br><span class="line">		<span class="keyword">if</span> (entry == handle) &#123;</span><br><span class="line">			*curr = entry-&gt;next;</span><br><span class="line"><span class="comment">//			free(entry);</span></span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">			curr = &amp;entry-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  background ticks, timer repeat invoking interval 5ms.</span></span><br><span class="line"><span class="comment">  * @param  None.</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_ticks</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Button</span>* <span class="title">target</span>;</span></span><br><span class="line">	<span class="keyword">for</span>(target=head_handle; target; target=target-&gt;next) &#123;</span><br><span class="line">		button_handler(target);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jianghe-jnhe.github.io/2025/02/13/multi-button/" title="multi_button" target="_blank" rel="external">https://jianghe-jnhe.github.io/2025/02/13/multi-button/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jianghe-jnhe" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jianghe-jnhe" target="_blank"><span class="text-dark">JiangHe</span><small class="ml-1x">Student</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2024/12/29/ResumeAttachment/" title="简历附件"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jianghe-jnhe" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://space.bilibili.com/496375938" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2025 Jnhe
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
