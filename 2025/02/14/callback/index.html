@@ -17,21 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>QT | Jnhe</title>
-  <meta name="description" content="QT界面排版 爱编程的大丙  https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Jp4y167R9?p&#x3D;57 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Jp4y167R9?p&#x3D;58   布局  水平 垂直 网格：水平+垂直   布局相互嵌套  主界面也要给一个布局  排版方式  Layout（布局） Container（容器）（推荐）   弹簧  可以设">
+  <title>multi_button前提知识：回调函数 | Jnhe</title>
+  <meta name="description" content="前提知识 函数 指针 typedef  基本概念   一个函数作为另外一个函数的一个参数；   是一种异步机制。  例如，一个按键初始化函数 1void button_init(struct Button* handle, uint8_t(*pin_level)(void), uint8_t active_level);  123456789void button_init(struct Butt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QT">
-<meta property="og:url" content="https://jianghe-jnhe.github.io/2024/10/10/QTLayoutandQSS/index.html">
+<meta property="og:title" content="multi_button前提知识：回调函数">
+<meta property="og:url" content="https://jianghe-jnhe.github.io/2025/02/14/callback/index.html">
 <meta property="og:site_name" content="Jnhe">
-<meta property="og:description" content="QT界面排版 爱编程的大丙  https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Jp4y167R9?p&#x3D;57 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Jp4y167R9?p&#x3D;58   布局  水平 垂直 网格：水平+垂直   布局相互嵌套  主界面也要给一个布局  排版方式  Layout（布局） Container（容器）（推荐）   弹簧  可以设">
+<meta property="og:description" content="前提知识 函数 指针 typedef  基本概念   一个函数作为另外一个函数的一个参数；   是一种异步机制。  例如，一个按键初始化函数 1void button_init(struct Button* handle, uint8_t(*pin_level)(void), uint8_t active_level);  123456789void button_init(struct Butt">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-10T14:15:56.000Z">
-<meta property="article:modified_time" content="2024-10-10T14:11:28.391Z">
+<meta property="article:published_time" content="2025-02-14T12:40:15.440Z">
+<meta property="article:modified_time" content="2025-02-14T12:41:21.310Z">
 <meta property="article:author" content="Jnhe">
-<meta property="article:tag" content="QT">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jianghe-jnhe.github.io/2024/10/10/QTLayoutandQSS/index.html">
+  <link rel="canonical" href="https://jianghe-jnhe.github.io/2025/02/14/callback/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jnhe" type="application/atom+xml">
   
@@ -275,14 +274,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-QTLayoutandQSS" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-callback" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      QT
+      multi_button前提知识：回调函数
     </h1>
   
 
@@ -290,93 +289,84 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2024/10/10/QTLayoutandQSS/" class="article-date">
-	  <time datetime="2024-10-10T14:15:56.000Z" itemprop="datePublished">2024-10-10</time>
+	<a href="/2025/02/14/callback/" class="article-date">
+	  <time datetime="2025-02-14T12:40:15.440Z" itemprop="datePublished">2025-02-14</time>
 	</a>
 </span>
         
         
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/QT/" rel="tag">QT</a>
-  </span>
-
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/10/10/QTLayoutandQSS/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/02/14/callback/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="QT界面排版"><a href="#QT界面排版" class="headerlink" title="QT界面排版"></a>QT界面排版</h2><ul>
-<li><p>爱编程的大丙</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jp4y167R9?p=57">https://www.bilibili.com/video/BV1Jp4y167R9?p=57</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jp4y167R9?p=58">https://www.bilibili.com/video/BV1Jp4y167R9?p=58</a></li>
+        <h2 id="前提知识"><a href="#前提知识" class="headerlink" title="前提知识"></a>前提知识</h2><ul>
+<li>函数</li>
+<li>指针</li>
+<li>typedef</li>
 </ul>
-</li>
-<li><p>布局</p>
-<ul>
-<li>水平</li>
-<li>垂直</li>
-<li>网格：水平+垂直</li>
-</ul>
-</li>
-<li><p>布局相互嵌套</p>
-</li>
-<li><p>主界面也要给一个布局</p>
-</li>
-<li><p>排版方式</p>
-<ul>
-<li>Layout（布局）</li>
-<li>Container（容器）（推荐）</li>
-</ul>
-</li>
-<li><p>弹簧</p>
-<ul>
-<li>可以设置固定值：size Type - Fixed</li>
-</ul>
-</li>
-</ul>
-<h2 id="QT-QSS"><a href="#QT-QSS" class="headerlink" title="QT QSS"></a>QT QSS</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Lu4y1e7er">https://www.bilibili.com/video/BV1Lu4y1e7er</a></li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">类&#123;</span><br><span class="line">    属性:值</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类:子类&#123;</span><br><span class="line">    属性:值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
+<p>  一个函数作为另外一个函数的一个参数；</p>
+<p>  是一种异步机制。</p>
+</blockquote>
+<p>例如，一个按键初始化函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">button_init</span><span class="params">(<span class="keyword">struct</span> Button* handle, <span class="type">uint8_t</span>(*pin_level)(<span class="type">void</span>), <span class="type">uint8_t</span> active_level)</span>;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p>UI界面</p>
-<ul>
-<li>改变样式表</li>
-</ul>
-</li>
-<li><p>自己写</p>
-<ul>
-<li>把QSS写在一个QString对象中</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QString qss = &quot;QPushButton&#123;<span class="attribute">color</span>:bule;&#125;&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">button_init</span><span class="params">(<span class="keyword">struct</span> Button* handle, <span class="type">uint8_t</span>(*pin_level)(<span class="type">void</span>), <span class="type">uint8_t</span> active_level)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">memset</span>(handle, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Button));<span class="comment">//清空按键结构体全部内容</span></span><br><span class="line">	handle-&gt;event = (<span class="type">uint8_t</span>)NONE_PRESS;<span class="comment">//按键中事件状态位设为：无按下</span></span><br><span class="line">	handle-&gt;hal_button_Level = pin_level;<span class="comment">//按键中获取按键电平的函数，调用参数2：uint8_t(*pin_level)(void)</span></span><br><span class="line">	handle-&gt;button_level = handle-&gt;hal_button_Level();<span class="comment">//执行回调函数得到返回值，赋值给按键中的按键检测电平值</span></span><br><span class="line">	handle-&gt;active_level = active_level;<span class="comment">//获取设定的激活状态，0表示低电平时，按键按下；1表示高电平时，按键按下</span></span><br><span class="line">    <span class="comment">//此时初始化完成。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>然后调用setStyleSheet函数给按钮设置QSS样式</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ui-&gt;pushButton-&gt;setStyleSheet(qss);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>导入QSS文件</p>
-<ul>
-<li><p>github获取成套的QSS样式：直接搜QSS（收藏量1.1k及以上的）</p>
-</li>
-<li><p>创建资源文件</p>
-</li>
-<li><p>资源文件写入CMakeLists.txt</p>
-</li>
-<li><p>资源文件中导入QSS文件（以.qss结尾）</p>
-</li>
-<li><p>cpp文件中读取QSS文件</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;:/QSS/Button.qss&quot;</span>)</span></span>;</span><br><span class="line">file.<span class="built_in">open</span>(QFile::ReadOnly);<span class="comment">//只读</span></span><br><span class="line">qss = file.<span class="built_in">readAll</span>();</span><br><span class="line">file.<span class="built_in">close</span>();</span><br><span class="line">a.<span class="built_in">setStyleSheet</span>(qss);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>struct Button* handle</td>
+<td>按键句柄</td>
+<td>表示每个具体的按键</td>
+</tr>
+<tr>
+<td>uint8_t (*pin_level)(void)</td>
+<td>读取引脚电平值</td>
+<td>回调函数&#x2F;函数指针，uint8_t为返回值，pin_level为函数名，void为参数</td>
+</tr>
+<tr>
+<td>uint8_t active_level</td>
+<td>按键按下是高or低电平</td>
+<td>0表示低电平时，按键按下；1表示高电平时，按键按下</td>
+</tr>
+</tbody></table>
+<p>使用方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Button</span> <span class="title">btn1</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数，用户定义</span></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">read_button1_GPIO</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//用户实现，完成相应操作</span></span><br><span class="line">    <span class="comment">//此处为读取引脚电平，高电平1与低电平0（uint8_t）</span></span><br><span class="line">	<span class="keyword">return</span> HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对按键初始化函数进行使用，传入三个参数：按键1的，读取电平函数，按键按下时为低电平。</span></span><br><span class="line">button_init(&amp;btn1, read_button1_GPIO, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//综上所述，即可完成对按键的初始化</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="简化声明"><a href="#简化声明" class="headerlink" title="简化声明"></a>简化声明</h2><blockquote>
+<p>  typedef：给数据类型起别名</p>
+</blockquote>
+<p>简化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">uint8_t</span> <span class="params">(*pin_level)</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">button_init</span><span class="params">(<span class="keyword">struct</span> Button* handle,pin_level my_cb, <span class="type">uint8_t</span> active_level)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">memset</span>(handle, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Button));<span class="comment">//清空按键结构体全部内容</span></span><br><span class="line">	handle-&gt;event = (<span class="type">uint8_t</span>)NONE_PRESS;<span class="comment">//按键中事件状态位设为：无按下</span></span><br><span class="line">	handle-&gt;hal_button_Level = my_cb;<span class="comment">//按键中获取按键电平的函数，调用参数2：my_cb</span></span><br><span class="line">	handle-&gt;button_level = handle-&gt;hal_button_Level();<span class="comment">//执行回调函数得到返回值，赋值给按键中的按键检测电平值</span></span><br><span class="line">	handle-&gt;active_level = active_level;<span class="comment">//获取设定的激活状态，0表示低电平时，按键按下；1表示高电平时，按键按下</span></span><br><span class="line">    <span class="comment">//此时初始化完成。    </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Button</span> <span class="title">btn1</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数，用户定义</span></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">read_button1_GPIO</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//用户实现，完成相应操作</span></span><br><span class="line">    <span class="comment">//此处为读取引脚电平，高电平1与低电平0（uint8_t）</span></span><br><span class="line">	<span class="keyword">return</span> HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对按键初始化函数进行使用，传入三个参数：按键1的，读取电平函数，按键按下时为低电平。</span></span><br><span class="line">button_init(&amp;btn1, read_button1_GPIO, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//综上所述，即可完成对按键的初始化</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数组形式"><a href="#数组形式" class="headerlink" title="数组形式"></a>数组形式</h2><p>数组</p>
+<blockquote>
+<p>数组：数据结构，存储相同数据类型的元素，</p>
+<p>数据类型 数组名称[数组大小]</p>
+<p>其中数组名称为首元素的地址，即 &amp;数组名称[0]，&amp;为取该地址的值</p>
+</blockquote>
+<p>回调函数的数组</p>
+<blockquote>
+<p>  按键触发事件有：单击、双击、长按、短按、按下、弹起等，每个事件触发以后，要做什么事情，由用户决定</p>
+<p>  能否同时建立多个回调函数，分别执行对应的触发事件，</p>
+<p>  使用数组：参数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//简化回调函数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*BtnCallback)</span><span class="params">(<span class="type">void</span>*)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//number_of_event是一个int值，表示数组大小</span></span><br><span class="line"><span class="comment">//声明一个有number_of_event个的回调函数数组：cb[0]、……、cb[number_of_event-1]</span></span><br><span class="line">BtnCallback  cb[number_of_event];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -386,7 +376,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jianghe-jnhe.github.io/2024/10/10/QTLayoutandQSS/" title="QT" target="_blank" rel="external">https://jianghe-jnhe.github.io/2024/10/10/QTLayoutandQSS/</a>
+      <a href="https://jianghe-jnhe.github.io/2025/02/14/callback/" title="multi_button前提知识：回调函数" target="_blank" rel="external">https://jianghe-jnhe.github.io/2025/02/14/callback/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -432,13 +422,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2024/12/29/ResumeAttachment/" title="简历附件"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2024/10/10/enum-typedef-define/" title="enum typedef define"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2025/02/13/multi-button/" title="multi_button"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
